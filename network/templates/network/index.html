@@ -1,0 +1,50 @@
+{% extends "network/layout.html" %}
+{% load static %}
+
+
+{% block body %}
+<div class="container">
+    <div class="row" id="title"></div>
+    <div class="row" id="profile-box">
+        {% if user.is_authenticated %}
+        <div class="col">
+            <h4 id="profile-user"></h4>
+            <h4 id="followers-count"></h4>
+            <h4 id="follows-count"></h4>
+            <button type="button" class="btn btn-primary" id="follow-button"></button>
+        </div>
+        <div class="row">
+            <div id="posts_by_user">Posts made by user</div>
+        </div>
+        {% endif %}
+    </div>
+    <div class="container">
+        <div class="row">
+            <div class="col align-self-center justify-content-center" id="posts-box">
+                {% if user.is_authenticated %}
+                    <form class="w-75" id="post">
+                        {% csrf_token %}
+                        <label class="form-label" for="post-body"><b>New Post</b></label>
+                        <textarea class="form-control" name="content" id="post-body"></textarea>
+                        <button type="submit" class="btn btn-primary mt-3 mb-3">Submit</button>
+                    </form>
+                {% endif %}
+                <div class="col align-self-center justify-content-center" id="allposts">
+                    <div id="numberlikes"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row" id="following-box">Following</div> 
+    <!--Paginator-->
+    <nav aria-label="Page navigation example">
+        <ul class="pagination justify-content-center mt-3 mb-2" id="page-number">
+            
+        </ul>
+    </nav>
+    <!--end Paginator -->
+</div>
+    {% endblock %}
+{% block script %}
+    <script src="{% static 'network/app.js'  %}"></script>
+{% endblock %}
